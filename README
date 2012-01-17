@@ -1,0 +1,8 @@
+
+That project is part of the showcase platform for C++ projects.
+
+That project makes use of the random generation ('randgen') component,
+but does not embed it. Indeed, both the 'main' and 'mainfat' projects exist,
+so as to emphasize the difference between embedding another component and
+just using it.
+
