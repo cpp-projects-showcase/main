@@ -2,7 +2,35 @@
 That project is part of the showcase platform for C++ projects.
 
 That project makes use of the random generation ('randgen') component,
-but does not embed it. Indeed, both the 'main' and 'mainfat' projects exist,
-so as to emphasize the difference between embedding another component and
-just using it.
+and there are two distinct implementations for that integration,
+materialised in both the 'trunk' and 'trunk_w_randgen' Git branches:
+ - One implementation, materialised by the 'trunk' Git branch, does not embed
+   the 'randgen' component. The build (CMake) configuration has thus to import
+   the 'randgen' component, as an external library. It is a standard CMake
+   CMake configuration, which can therefore remain simple.
+   The build of all the components, 'combase, 'randgen' and 'main', is handled
+   by a simple (Ruby-based) Rake file, maintained by the 'meta' project
+   (http://github.com/cpp-projects-showcase/meta).
+ - The other implementation, materialised by the 'trunk_w_randgen' branch,
+   embeds the 'randgen' component, which is therefore an internal component.
+   Here, the build (CMake) configuration has to create an internal/inter-module
+   dependency. While that operation is not difficult per se, the complexity
+   arises from the fact that the 'randgen' component must still be integrable
+   as an external component by other projects. The build configuration must
+   therefore support the integration of 'randgen', both as an internal and as
+   an external component. That implementation (Git branch) therefore shows
+   an example of a complex build (CMake) configuration.
+   The build of that branch does not need the (Ruby-based) Rake file of the
+   'meta' project.
+
+The purpose of the 'trunk' branch and of the 'meta' project is to show how
+it is possible to co-develop several inter-dependant components, how to build,
+to test and to deliver all those projects in a consistent manner, while keeping
+the configuration pretty simple, though efficient.
+In contrast, the 'trunk_w_randgen' branch does not need the (very light) 'meta'
+project. It implements a complex CMake configuration, targeting the same goal
+as the Rake file of the 'meta' project, but in a much more complex way,
+involving expertise both with Git (imposing to master sub-trees or sub-modules)
+and CMake (for the inter-dependencies among components).
+
 
